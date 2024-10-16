@@ -1,0 +1,59 @@
+[2024-10-10T14:39:21.614+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-10T14:39:21.695+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T14:39:18.116316+00:00 [queued]>
+[2024-10-10T14:39:21.714+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T14:39:18.116316+00:00 [queued]>
+[2024-10-10T14:39:21.716+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-10-10T14:39:21.750+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): process_kpi_template> on 2024-10-10 14:39:18.116316+00:00
+[2024-10-10T14:39:21.766+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=1122) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-10-10T14:39:21.766+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'import_excel_to_oracle', 'process_kpi_template', 'manual__2024-10-10T14:39:18.116316+00:00', '--job-id', '77', '--raw', '--subdir', 'DAGS_FOLDER/oracle_dag.py', '--cfg-path', '/tmp/tmpiy3qnq5p']
+[2024-10-10T14:39:21.769+0000] {standard_task_runner.py:64} INFO - Started process 1132 to run task
+[2024-10-10T14:39:21.770+0000] {standard_task_runner.py:91} INFO - Job 77: Subtask process_kpi_template
+[2024-10-10T14:39:21.812+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2024-10-10T14:39:21.893+0000] {task_command.py:426} INFO - Running <TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T14:39:18.116316+00:00 [running]> on host 751c06a3cc64
+[2024-10-10T14:39:22.134+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='import_excel_to_oracle' AIRFLOW_CTX_TASK_ID='process_kpi_template' AIRFLOW_CTX_EXECUTION_DATE='2024-10-10T14:39:18.116316+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-10T14:39:18.116316+00:00'
+[2024-10-10T14:39:22.137+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-10T14:39:22.259+0000] {base.py:84} INFO - Using connection ID 'oracle_conn_id' for task execution.
+[2024-10-10T14:39:22.262+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-10T14:39:22.263+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/oracle_dag.py", line 112, in process_kpi_template
+    load_data_to_oracle(kpi_template_df, 'KPI_TEMPLATE', 'oracle_conn_id')
+  File "/opt/airflow/dags/oracle_dag.py", line 75, in load_data_to_oracle
+    connection = oracle_hook.get_conn()
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/oracle/hooks/oracle.py", line 237, in get_conn
+    conn = oracledb.connect(**conn_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/connection.py", line 1169, in connect
+    return conn_class(dsn=dsn, pool=pool, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/connection.py", line 527, in __init__
+    dsn = params_impl.process_args(dsn, kwargs, thin)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src/oracledb/impl/base/connect_params.pyx", line 468, in oracledb.base_impl.ConnectParamsImpl.process_args
+  File "src/oracledb/impl/base/connect_params.pyx", line 405, in oracledb.base_impl.ConnectParamsImpl.parse_connect_string
+  File "src/oracledb/impl/base/connect_params.pyx", line 403, in oracledb.base_impl.ConnectParamsImpl.parse_connect_string
+  File "src/oracledb/impl/base/connect_params.pyx", line 253, in oracledb.base_impl.ConnectParamsImpl._parse_connect_string
+  File "src/oracledb/impl/base/parsers.pyx", line 552, in oracledb.base_impl.ConnectStringParser.parse
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/errors.py", line 195, in _raise_err
+    raise error.exc_type(error) from cause
+oracledb.exceptions.DatabaseError: DPY-4018: cannot parse connect string "DESKTOP-5V7URSU:1521/c##BAI_TEST"
+[2024-10-10T14:39:22.296+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=import_excel_to_oracle, task_id=process_kpi_template, run_id=manual__2024-10-10T14:39:18.116316+00:00, execution_date=20241010T143918, start_date=20241010T143921, end_date=20241010T143922
+[2024-10-10T14:39:22.322+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 77 for task process_kpi_template (DPY-4018: cannot parse connect string "DESKTOP-5V7URSU:1521/c##BAI_TEST"; 1132)
+[2024-10-10T14:39:22.349+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-10-10T14:39:22.406+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-10T14:39:22.415+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

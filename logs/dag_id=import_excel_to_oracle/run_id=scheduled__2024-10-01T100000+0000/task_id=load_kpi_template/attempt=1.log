@@ -1,0 +1,70 @@
+[2024-10-03T03:31:05.547+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-03T03:31:05.613+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_excel_to_oracle.load_kpi_template scheduled__2024-10-01T10:00:00+00:00 [queued]>
+[2024-10-03T03:31:05.639+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_excel_to_oracle.load_kpi_template scheduled__2024-10-01T10:00:00+00:00 [queued]>
+[2024-10-03T03:31:05.641+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2024-10-03T03:31:05.712+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): load_kpi_template> on 2024-10-01 10:00:00+00:00
+[2024-10-03T03:31:05.760+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=32831) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-10-03T03:31:05.756+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'import_excel_to_oracle', 'load_kpi_template', 'scheduled__2024-10-01T10:00:00+00:00', '--job-id', '14', '--raw', '--subdir', 'DAGS_FOLDER/new_dag.py', '--cfg-path', '/tmp/tmpdfsof7_2']
+[2024-10-03T03:31:05.763+0000] {standard_task_runner.py:64} INFO - Started process 32835 to run task
+[2024-10-03T03:31:05.764+0000] {standard_task_runner.py:91} INFO - Job 14: Subtask load_kpi_template
+[2024-10-03T03:31:05.821+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2024-10-03T03:31:05.917+0000] {task_command.py:426} INFO - Running <TaskInstance: import_excel_to_oracle.load_kpi_template scheduled__2024-10-01T10:00:00+00:00 [running]> on host 3fed06331d8d
+[2024-10-03T03:31:06.355+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_EMAIL='your_email@example.com' AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='import_excel_to_oracle' AIRFLOW_CTX_TASK_ID='load_kpi_template' AIRFLOW_CTX_EXECUTION_DATE='2024-10-01T10:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-10-01T10:00:00+00:00'
+[2024-10-03T03:31:06.358+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-03T03:31:06.446+0000] {base.py:84} INFO - Using connection ID 'oracle_conn_id' for task execution.
+[2024-10-03T03:31:06.455+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-03T03:31:06.457+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "src/oracledb/impl/thin/connection.pyx", line 322, in oracledb.thin_impl.ThinConnImpl._connect_with_address
+  File "src/oracledb/impl/thin/protocol.pyx", line 225, in oracledb.thin_impl.Protocol._connect_phase_one
+  File "src/oracledb/impl/thin/protocol.pyx", line 362, in oracledb.thin_impl.Protocol._connect_tcp
+  File "/usr/local/lib/python3.12/socket.py", line 853, in create_connection
+    raise exceptions[0]
+  File "/usr/local/lib/python3.12/socket.py", line 838, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/new_dag.py", line 35, in load_excel_to_oracle
+    conn = oracle_hook.get_conn()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/oracle/hooks/oracle.py", line 237, in get_conn
+    conn = oracledb.connect(**conn_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/connection.py", line 1169, in connect
+    return conn_class(dsn=dsn, pool=pool, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/connection.py", line 551, in __init__
+    impl.connect(params_impl)
+  File "src/oracledb/impl/thin/connection.pyx", line 424, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 420, in oracledb.thin_impl.ThinConnImpl.connect
+  File "src/oracledb/impl/thin/connection.pyx", line 380, in oracledb.thin_impl.ThinConnImpl._connect_with_params
+  File "src/oracledb/impl/thin/connection.pyx", line 361, in oracledb.thin_impl.ThinConnImpl._connect_with_description
+  File "src/oracledb/impl/thin/connection.pyx", line 327, in oracledb.thin_impl.ThinConnImpl._connect_with_address
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/errors.py", line 195, in _raise_err
+    raise error.exc_type(error) from cause
+oracledb.exceptions.OperationalError: DPY-6005: cannot connect to database (CONNECTION_ID=pJPAvaC6p+iZEQxF4d24xQ==).
+[Errno 111] Connection refused
+[2024-10-03T03:31:06.491+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=import_excel_to_oracle, task_id=load_kpi_template, run_id=scheduled__2024-10-01T10:00:00+00:00, execution_date=20241001T100000, start_date=20241003T033105, end_date=20241003T033106
+[2024-10-03T03:31:06.527+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 14 for task load_kpi_template (DPY-6005: cannot connect to database (CONNECTION_ID=pJPAvaC6p+iZEQxF4d24xQ==).
+[Errno 111] Connection refused; 32835)
+[2024-10-03T03:31:06.559+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-10-03T03:31:06.623+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-03T03:31:06.630+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

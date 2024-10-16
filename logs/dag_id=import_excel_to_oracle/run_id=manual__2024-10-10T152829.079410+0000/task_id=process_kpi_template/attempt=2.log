@@ -1,0 +1,53 @@
+[2024-10-10T15:33:35.410+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-10T15:33:35.497+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T15:28:29.079410+00:00 [queued]>
+[2024-10-10T15:33:35.516+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T15:28:29.079410+00:00 [queued]>
+[2024-10-10T15:33:35.518+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2024-10-10T15:33:35.595+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): process_kpi_template> on 2024-10-10 15:28:29.079410+00:00
+[2024-10-10T15:33:35.616+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=1017) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-10-10T15:33:35.615+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'import_excel_to_oracle', 'process_kpi_template', 'manual__2024-10-10T15:28:29.079410+00:00', '--job-id', '113', '--raw', '--subdir', 'DAGS_FOLDER/oracle_dag.py', '--cfg-path', '/tmp/tmpnan0gmn5']
+[2024-10-10T15:33:35.619+0000] {standard_task_runner.py:64} INFO - Started process 1025 to run task
+[2024-10-10T15:33:35.620+0000] {standard_task_runner.py:91} INFO - Job 113: Subtask process_kpi_template
+[2024-10-10T15:33:35.667+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2024-10-10T15:33:35.753+0000] {task_command.py:426} INFO - Running <TaskInstance: import_excel_to_oracle.process_kpi_template manual__2024-10-10T15:28:29.079410+00:00 [running]> on host 751c06a3cc64
+[2024-10-10T15:33:35.997+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='import_excel_to_oracle' AIRFLOW_CTX_TASK_ID='process_kpi_template' AIRFLOW_CTX_EXECUTION_DATE='2024-10-10T15:28:29.079410+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-10T15:28:29.079410+00:00'
+[2024-10-10T15:33:36.000+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-10T15:33:36.138+0000] {base.py:84} INFO - Using connection ID 'oracle_conn_id' for task execution.
+[2024-10-10T15:33:36.239+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-10T15:33:36.241+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/oracle_dag.py", line 112, in process_kpi_template
+    load_data_to_oracle(kpi_template_df, 'KPI_TEMPLATE', 'oracle_conn_id')
+  File "/opt/airflow/dags/oracle_dag.py", line 79, in load_data_to_oracle
+    create_table(cursor, table_name, df)
+  File "/opt/airflow/dags/oracle_dag.py", line 55, in create_table
+    cursor.execute(create_table_sql)
+  File "/home/airflow/.local/lib/python3.12/site-packages/oracledb/cursor.py", line 710, in execute
+    impl.execute(self)
+  File "src/oracledb/impl/thin/cursor.pyx", line 196, in oracledb.thin_impl.ThinCursorImpl.execute
+  File "src/oracledb/impl/thin/protocol.pyx", line 440, in oracledb.thin_impl.Protocol._process_single_message
+  File "src/oracledb/impl/thin/protocol.pyx", line 441, in oracledb.thin_impl.Protocol._process_single_message
+  File "src/oracledb/impl/thin/protocol.pyx", line 433, in oracledb.thin_impl.Protocol._process_message
+  File "src/oracledb/impl/thin/messages.pyx", line 74, in oracledb.thin_impl.Message._check_and_raise_exception
+oracledb.exceptions.DatabaseError: ORA-00955: name is already used by an existing object
+Help: https://docs.oracle.com/error-help/db/ora-00955/
+[2024-10-10T15:33:36.273+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=import_excel_to_oracle, task_id=process_kpi_template, run_id=manual__2024-10-10T15:28:29.079410+00:00, execution_date=20241010T152829, start_date=20241010T153335, end_date=20241010T153336
+[2024-10-10T15:33:36.315+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 113 for task process_kpi_template (ORA-00955: name is already used by an existing object
+Help: https://docs.oracle.com/error-help/db/ora-00955/; 1025)
+[2024-10-10T15:33:36.360+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2024-10-10T15:33:36.413+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-10T15:33:36.428+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

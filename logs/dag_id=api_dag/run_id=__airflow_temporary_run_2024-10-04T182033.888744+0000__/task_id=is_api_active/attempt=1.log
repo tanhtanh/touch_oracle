@@ -1,0 +1,93 @@
+[2024-10-04T18:20:35.007+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-04T18:20:35.041+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: api_dag.is_api_active __airflow_temporary_run_2024-10-04T18:20:33.888744+00:00__ [queued]>
+[2024-10-04T18:20:35.065+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: api_dag.is_api_active __airflow_temporary_run_2024-10-04T18:20:33.888744+00:00__ [queued]>
+[2024-10-04T18:20:35.067+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2024-10-04T18:20:35.099+0000] {taskinstance.py:2330} INFO - Executing <Task(HttpSensor): is_api_active> on 2024-10-04 18:20:33.888678+00:00
+[2024-10-04T18:20:35.111+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=7303) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2024-10-04T18:20:35.113+0000] {standard_task_runner.py:64} INFO - Started process 7304 to run task
+[2024-10-04T18:20:35.111+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'api_dag', 'is_api_active', '__***_temporary_run_2024-10-04T18:20:33.888744+00:00__', '--job-id', '57', '--raw', '--subdir', 'DAGS_FOLDER/dag_to_api.py', '--cfg-path', '/tmp/tmp6j39_6iv']
+[2024-10-04T18:20:35.115+0000] {standard_task_runner.py:91} INFO - Job 57: Subtask is_api_active
+[2024-10-04T18:20:35.151+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2024-10-04T18:20:35.228+0000] {task_command.py:426} INFO - Running <TaskInstance: api_dag.is_api_active __airflow_temporary_run_2024-10-04T18:20:33.888744+00:00__ [running]> on host 3fed06331d8d
+[2024-10-04T18:20:35.438+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='api_dag' AIRFLOW_CTX_TASK_ID='is_api_active' AIRFLOW_CTX_EXECUTION_DATE='2024-10-04T18:20:33.888678+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='__***_temporary_run_2024-10-04T18:20:33.888744+00:00__'
+[2024-10-04T18:20:35.442+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-04T18:20:35.475+0000] {baseoperator.py:400} WARNING - HttpSensor.execute cannot be called outside TaskInstance!
+[2024-10-04T18:20:35.476+0000] {http.py:137} INFO - Poking: /
+[2024-10-04T18:20:35.498+0000] {base.py:84} INFO - Using connection ID 'http_default' for task execution.
+[2024-10-04T18:20:45.231+0000] {local_task_job_runner.py:313} WARNING - State of this instance has been externally set to None. Terminating instance.
+[2024-10-04T18:20:45.234+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2024-10-04T18:20:45.237+0000] {process_utils.py:132} INFO - Sending 15 to group 7304. PIDs of all processes in the group: [7304]
+[2024-10-04T18:20:45.239+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 7304
+[2024-10-04T18:20:45.240+0000] {taskinstance.py:2611} ERROR - Received SIGTERM. Terminating subprocesses.
+[2024-10-04T18:20:45.243+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-04T18:20:45.267+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/http/sensors/http.py", line 164, in execute
+    super().execute(context=context)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/sensors/base.py", line 246, in execute
+    poke_return = self.poke(context)
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/http/sensors/http.py", line 139, in poke
+    response = hook.run(
+               ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/http/hooks/http.py", line 188, in run
+    return self.run_and_check(session, prepped_request, extra_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/http/hooks/http.py", line 236, in run_and_check
+    response = session.send(prepped_request, **send_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/urllib3/connectionpool.py", line 791, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/urllib3/connectionpool.py", line 537, in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/urllib3/connection.py", line 461, in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/http/client.py", line 1428, in getresponse
+    response.begin()
+  File "/usr/local/lib/python3.12/http/client.py", line 331, in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/http/client.py", line 292, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/socket.py", line 708, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/ssl.py", line 1252, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/ssl.py", line 1104, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 2613, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+[2024-10-04T18:20:45.296+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=api_dag, task_id=is_api_active, run_id=__***_temporary_run_2024-10-04T18:20:33.888744+00:00__, execution_date=20241004T182033, start_date=20241004T182035, end_date=20241004T182045
+[2024-10-04T18:20:45.332+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 57 for task is_api_active ((psycopg2.errors.ForeignKeyViolation) insert or update on table "task_fail" violates foreign key constraint "task_fail_ti_fkey"
+DETAIL:  Key (dag_id, task_id, run_id, map_index)=(api_dag, is_api_active, __airflow_temporary_run_2024-10-04T18:20:33.888744+00:00__, -1) is not present in table "task_instance".
+
+[SQL: INSERT INTO task_fail (task_id, dag_id, run_id, map_index, start_date, end_date, duration) VALUES (%(task_id)s, %(dag_id)s, %(run_id)s, %(map_index)s, %(start_date)s, %(end_date)s, %(duration)s) RETURNING task_fail.id]
+[parameters: {'task_id': 'is_api_active', 'dag_id': 'api_dag', 'run_id': '__airflow_temporary_run_2024-10-04T18:20:33.888744+00:00__', 'map_index': -1, 'start_date': datetime.datetime(2024, 10, 4, 18, 20, 35, 43284, tzinfo=Timezone('UTC')), 'end_date': datetime.datetime(2024, 10, 4, 18, 20, 45, 294963, tzinfo=Timezone('UTC')), 'duration': 10}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 7304)
+[2024-10-04T18:20:45.374+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=7304, status='terminated', exitcode=1, started='18:20:34') (7304) terminated with exit code 1
