@@ -1,0 +1,6 @@
+name: 'DBT_ORACLE'
+version: '1.0.0'
+profile: 'BAI_TEST_project'  
+model-paths: ["models"]
+target-path: "target"  
+clean-targets: ["target"]

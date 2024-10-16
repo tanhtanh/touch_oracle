@@ -1,0 +1,15 @@
+
+BAI_TEST_project:
+  target: dev
+  outputs:
+    dev:
+      type: oracle
+      host: DESKTOP-5V7URSU
+      user: c##BAI_TEST
+      password: "1234"
+      port: "1521"
+      schema: c##BAI_TEST
+      tns_name: ORCL
+      threads: 4
+      protocol: "TCP"
+      service: "orcl"
